@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+
+{% block styles %}
+{% endblock %}
+
 {% block content %}
 
     {% for task in tasks %}
@@ -9,4 +13,7 @@
         {{ task.due_date }}<br>
     {% endfor %}
 
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}
