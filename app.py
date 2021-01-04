@@ -42,7 +42,7 @@ def register():
         }
         mongo.db.users.insert_one(register)
 
-        #put the new user into the 'session' cookie
+        # put the new user into the 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration successful!")
         return redirect(url_for("profile", username=session["user"]))
@@ -81,7 +81,8 @@ def login():
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # square brackets at the end of next line ensures we only return the username rather than their password as well
+    # square brackets at the end of next line ensures we
+    # only return the username rather than their password as well
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     return render_template("profile.html", username=username)
@@ -102,7 +103,8 @@ def logout():
 
 @app.route("/add_task")
 def add_task():
-    return render_template("add_task.html")
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("add_task.html", categories=categories)
 
 
 if __name__ == "__main__":
