@@ -145,7 +145,8 @@ def edit_task(task_id):
 
 @app.route("/delete_task/<task_id>")
 def delete_task(task_id):
-    # should probably enter a prompt here to ask if user really wants to remove task
+    # should probably enter a prompt here to ask if user 
+    # really wants to remove task
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task successfully deleted")
     return redirect(url_for("get_tasks"))
@@ -153,17 +154,19 @@ def delete_task(task_id):
 
 @app.route("/get_categories")
 def get_categories():
-    # lists each item within the categories collection, then sorts by the name key
+    # lists each item within the categories collection
+    # then sorts by the name key
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     return render_template("categories.html", categories=categories)
 
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
-    # would be wise to add in additional authentication checks here to ensure that 
-    # unauthorised users cannot access this page, see the session.user loops in the
-    # tasks.html file. Consider adding an additional parameter to the user data in mongo
-    # like is_admin or is_superuser, then running a check against this in a jinja loop
+    # would be wise to add in additional authentication checks here to ensure
+    # unauthorised users cannot access this page, see session.user loops in
+    # tasks.html file. Consider adding a parameter to user data in mongo
+    # like is_admin or is_superuser, then run a check against this in
+    # a jinja loop
     if request.method == "POST":
         category = {
             "category_name": request.form.get("category_name")
@@ -171,8 +174,8 @@ def add_category():
         mongo.db.categories.insert_one(category)
         flash("New category created")
         return redirect(url_for("get_categories"))
-    # below is effectively the GET method as an ELSE to the request above, displays a blank
-    # form to the admin account
+    # below is effectively the GET method as an ELSE to the
+    # request above, displays a blank form to the admin account
     return render_template("add_category.html")
 
 
