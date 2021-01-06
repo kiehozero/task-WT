@@ -145,7 +145,7 @@ def edit_task(task_id):
 
 @app.route("/delete_task/<task_id>")
 def delete_task(task_id):
-    # should probably enter a prompt here to ask if user 
+    # should probably enter a prompt here to ask if user
     # really wants to remove task
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task successfully deleted")
@@ -200,7 +200,7 @@ def delete_category(category_id):
     # ideally would include a prompt to confirm deletion
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
     flash("Category deleted")
-    return redirect (url_for("get_categories"))
+    return redirect(url_for("get_categories"))
 
 
 if __name__ == "__main__":
